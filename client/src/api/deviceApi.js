@@ -10,7 +10,6 @@ export const deviceApi = {
         const {data} = await instanceAxios.get('api/brand');
         return data
     },
-
     // удален лимит пока не разобралась
 
     async fetchDevices(typeId, brandId, page) {
