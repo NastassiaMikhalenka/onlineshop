@@ -21,6 +21,7 @@ export const DeviceListItem = ({device}) => {
                     transform: 'scale(1.02)',
                     cursor: 'pointer',
                 },
+                marginRight: '15px'
             }}
 
         >
@@ -39,6 +40,9 @@ export const DeviceListItem = ({device}) => {
                 <Box component={'div'}>
                     <Typography gutterBottom variant="h6" component="div">
                         {device.name}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="div">
+                        {`${device.price} £`}
                     </Typography>
                 </Box>
             </CardContent>
