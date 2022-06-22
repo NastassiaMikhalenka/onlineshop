@@ -1,13 +1,12 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
-import {userReducer} from "./userReducer";
-import {devicesReducer} from "./devicesReducer";
-
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {authReducer} from './auth/authReducer';
+import {devicesReducer} from './devices/devicesReducer';
 
 const rootReducer = combineReducers({
-    login: userReducer,
+    auth: authReducer,
     devices: devicesReducer,
-})
+});
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 

@@ -10,13 +10,7 @@ export const instanceAxios = axios.create({
 
 export const authInterceptor = config => {
     config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
-    return config
+    return config;
 }
 
-// export const addAuthHeader = () => {
-//     return {
-//         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-//     };
-// };
-
-instanceAxios.interceptors.request.use(authInterceptor)
+instanceAxios.interceptors.request.use(authInterceptor);

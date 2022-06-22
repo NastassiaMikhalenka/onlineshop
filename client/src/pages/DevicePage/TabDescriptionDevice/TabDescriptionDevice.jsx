@@ -5,6 +5,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+//   color="teal"
+
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
 
@@ -47,7 +49,7 @@ export default function BasicTabs({device}) {
 
     return (
         <Box sx={{width: '100%'}}>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+            <Box sx={{borderBottom: 1, borderColor: 'divider', color: "teal"}}>
                 <Tabs value={value} onChange={handleChange}>
                     {device.info.map((des, index) => {
                         return <Tab label={des.title} {...a11yProps(index)} color={'teal'}
@@ -61,7 +63,6 @@ export default function BasicTabs({device}) {
                 </TabPanel>
             })
         }
-
         </Box>
     );
-}
+};

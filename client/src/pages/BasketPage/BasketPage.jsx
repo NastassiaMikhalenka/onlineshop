@@ -1,10 +1,11 @@
 import React from 'react';
 
-
-export const BasketPage = () => {
+const BasketPage = () => {
     return (
         <div>
             BasketPage
         </div>
     );
 };
+
+export default BasketPage;

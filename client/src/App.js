@@ -1,13 +1,12 @@
 import './App.css';
 import AppRouter from "./routers/routers";
-import NavBar from "./components/navbar/navBar";
-import {userApi} from "./api/userApi";
+import {NavBar} from "./components/navbar/navBar";
+import {authApi} from "./api/authApi";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {setIsLoggedInAC} from "./store/userReducer";
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
-
+import {setIsLoggedIn} from "./store/auth/authAction";
 
 const theme = createTheme({
     typography: {
@@ -22,15 +21,14 @@ const theme = createTheme({
     },
 });
 
-
 function App() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        userApi.check().then( data => {
-            dispatch(setIsLoggedInAC(true))
+        authApi.check().then(data => {
+            dispatch(setIsLoggedIn(true));
         })
-    }, [])
+    }, [dispatch]);
 
     return (
         <ThemeProvider theme={theme}>

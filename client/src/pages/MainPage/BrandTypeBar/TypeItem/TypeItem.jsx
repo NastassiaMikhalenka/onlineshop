@@ -1,8 +1,7 @@
 import React from 'react';
 import {ListItemButton, ListItemText} from '@mui/material';
 
-
-const TypeItem = ({item, isSelect, onSelectItem}) => {
+export const TypeItem = ({item, isSelect, onSelectItem}) => {
     return (
         <ListItemButton
             selected={isSelect}
@@ -16,7 +15,6 @@ const TypeItem = ({item, isSelect, onSelectItem}) => {
                 '&.Mui-selected:hover': {
                     backgroundColor: '#cff0f0',
                 },
-
             }}
             onClick={() => {
                 onSelectItem(item);
@@ -26,5 +24,3 @@ const TypeItem = ({item, isSelect, onSelectItem}) => {
         </ListItemButton>
     );
 };
-
-export default TypeItem;

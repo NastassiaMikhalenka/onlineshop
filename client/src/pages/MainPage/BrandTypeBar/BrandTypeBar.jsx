@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Divider, List, Typography } from '@mui/material';
-import TypeItem from "./TypeItem/TypeItem";
+import {TypeItem} from "./TypeItem/TypeItem";
 
 export const BrandTypeBar = ({ title, items, selectedItem, onSelectItem }) => {
     return (

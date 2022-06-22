@@ -1,29 +1,24 @@
 import * as React from 'react';
 import {useEffect} from 'react';
-
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOneDevice} from "../../store/devicesReducer";
-
 import {Box, Button, Grid, Typography} from '@mui/material';
-import BasicTabs from "./TabDescriptionDevice";
+import BasicTabs from "./TabDescriptionDevice/TabDescriptionDevice";
+import {fetchOneDevice} from "../../store/devices/devicesThunk";
+import {getSelectedDevice} from "../../store/devices/devicesSelectors";
 
-
-export const DevicePage = () => {
+const DevicePage = () => {
     const dispatch = useDispatch();
-    const device = useSelector(state => state.devices.selectedDevice);
-    const {id} = useParams()
-    console.log(id)
+    const device = useSelector(getSelectedDevice);
+    const {id} = useParams();
     useEffect(() => {
-        dispatch(fetchOneDevice(id))
-    }, [])
-    console.log(device)
+        dispatch(fetchOneDevice(id));
+    }, [dispatch, id]);
 
     return (
         <>
             {device && (
                 <>
-
                     <Grid container marginTop={'40px'}>
                         <Grid item xs={2} md={8} display={'flex'} justifyContent="spaceBetween"
                               style={{margin: 'auto'}}>
@@ -59,3 +54,5 @@ export const DevicePage = () => {
         </>
     );
 };
+
+export default DevicePage;

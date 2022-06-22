@@ -1,33 +1,33 @@
-import React, { useEffect } from 'react';
-import {AppBar, Toolbar, Typography, Button, Container, IconButton} from '@mui/material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import { logoutUser } from '../../store/userSlice';
+import React, {useEffect} from 'react';
+import {AppBar, Toolbar, Typography, Container, IconButton} from '@mui/material';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
-import {setIsLoggedInAC} from "../../store/userReducer";
+import {setIsLoggedIn} from "../../store/auth/authAction";
+import {getIsAuth} from "../../store/auth/authSelectors";
 
-const NavBar = () => {
+export const NavBar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const isAuth = useSelector(state => state.login.isAuth);
+    const isAuth = useSelector(getIsAuth);
 
     useEffect(() => {
         if (isAuth) {
             navigate('/');
         }
-    }, [isAuth]);
+    }, [isAuth, navigate]);
 
     const onClickLogin = () => {
         navigate('/auth');
     };
 
     const onClickLogout = () => {
-        localStorage.removeItem('token')
-        dispatch(setIsLoggedInAC(false))
+        localStorage.removeItem('token');
+        dispatch(setIsLoggedIn(false));
         navigate('/');
     };
 
@@ -35,63 +35,51 @@ const NavBar = () => {
         navigate('/admin');
     };
 
-    const onClickGoMain = () => {
+    const onClickMain = () => {
         navigate('/');
     };
 
     return (
         <>
-            <AppBar position="fixed" style={{ background: '#006f74'}}>
+            <AppBar position="fixed" style={{background: '#006f74'}}>
                 <Container maxWidth="xl">
                     <Toolbar>
-                        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }} style={{fontFamily: 'Raleway'}}>
-                            <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                The stem
-                            </Link>
+                        <Typography variant="h5" component="div" sx={{flexGrow: 1}} style={{fontFamily: 'Raleway'}}>
+                            <Link to={'/'} style={{color: 'inherit', textDecoration: 'none'}}>The stem</Link>
                         </Typography>
                         {isAuth ? (
                             location.pathname === '/admin' ? (
                                 <>
                                     <IconButton
                                         size="large"
-                                        onClick={onClickGoMain}
+                                        onClick={onClickMain}
                                         color="inherit"
                                     >
-                                        <ShoppingBasketOutlinedIcon />
+                                        <ShoppingBasketOutlinedIcon/>
                                     </IconButton>
                                     <IconButton
                                         size="large"
-                                        // aria-label="account of current user"
-                                        // aria-controls="menu-appbar"
-                                        // aria-haspopup="true"
                                         onClick={onClickLogout}
                                         color="inherit"
                                     >
-                                        <LogoutIcon />
+                                        <LogoutIcon/>
                                     </IconButton>
                                 </>
-
                             ) : (
                                 <>
                                     <IconButton
                                         size="large"
-                                        // aria-label="account of current user"
-                                        // aria-controls="menu-appbar"
-                                        // aria-haspopup="true"
                                         onClick={onClickAdmin}
                                         color="inherit"
                                     >
-                                        <AdminPanelSettingsOutlinedIcon />
+                                        <AdminPanelSettingsOutlinedIcon/>
                                     </IconButton>
                                     <IconButton
                                         size="large"
-                                        // aria-label="account of current user"
-                                        // aria-controls="menu-appbar"
-                                        // aria-haspopup="true"
                                         onClick={onClickLogout}
                                         color="inherit"
                                     >
-                                        <LogoutIcon />
+                                        <LogoutIcon/>
                                     </IconButton>
                                 </>
                             )
@@ -99,23 +87,17 @@ const NavBar = () => {
                             <>
                                 <IconButton
                                     size="large"
-                                    // aria-label="account of current user"
-                                    // aria-controls="menu-appbar"
-                                    // aria-haspopup="true"
                                     onClick={onClickLogin}
                                     color="inherit"
                                 >
-                                    <AccountCircle />
+                                    <AccountCircle/>
                                 </IconButton>
                             </>
-
                         )}
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Toolbar />
+            <Toolbar/>
         </>
     );
 };
-
-export default NavBar;

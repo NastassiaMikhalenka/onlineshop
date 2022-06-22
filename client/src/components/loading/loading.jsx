@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './loading.module.css';
 
-const Preloader = () => {
+export const Preloader = () => {
     return (
         <div className={styles.loading}>
             <figure>
@@ -13,5 +13,3 @@ const Preloader = () => {
         </div>
     );
 };
-
-export default Preloader;

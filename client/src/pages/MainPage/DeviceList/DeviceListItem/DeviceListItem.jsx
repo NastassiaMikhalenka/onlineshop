@@ -1,7 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Rating, Typography } from '@mui/material';
-
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 export const DeviceListItem = ({device}) => {
     const navigate = useNavigate();
@@ -23,7 +22,6 @@ export const DeviceListItem = ({device}) => {
                 },
                 marginRight: '15px'
             }}
-
         >
             <CardContent>
                 <CardMedia
