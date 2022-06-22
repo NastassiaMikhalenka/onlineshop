@@ -10,11 +10,10 @@ export const deviceApi = {
         const {data} = await instanceAxios.get('api/brand');
         return data;
     },
-    // удален лимит
-    async fetchDevices(typeId, brandId, page) {
+    async fetchDevices(typeId, brandId, page, limit) {
         const {data} = await instanceAxios.get('api/device', {
             params: {
-                typeId, brandId, page,
+                typeId, brandId, page, limit
             },
         });
         return data;

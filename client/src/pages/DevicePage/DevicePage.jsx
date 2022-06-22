@@ -6,17 +6,22 @@ import {Box, Button, Grid, Typography} from '@mui/material';
 import BasicTabs from "./TabDescriptionDevice/TabDescriptionDevice";
 import {fetchOneDevice} from "../../store/devices/devicesThunk";
 import {getSelectedDevice} from "../../store/devices/devicesSelectors";
+import {getIsLoading} from "../../store/auth/authSelectors";
+import {LoadingLine} from "../../components/loadingLine/loadingLine";
 
 const DevicePage = () => {
     const dispatch = useDispatch();
     const device = useSelector(getSelectedDevice);
     const {id} = useParams();
+    const loading = useSelector(getIsLoading);
+
     useEffect(() => {
         dispatch(fetchOneDevice(id));
-    }, [dispatch, id]);
+    }, []);
 
     return (
         <>
+                {loading && <LoadingLine/>}
             {device && (
                 <>
                     <Grid container marginTop={'40px'}>

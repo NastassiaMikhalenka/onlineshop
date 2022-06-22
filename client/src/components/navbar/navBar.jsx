@@ -19,7 +19,7 @@ export const NavBar = () => {
         if (isAuth) {
             navigate('/');
         }
-    }, [isAuth, navigate]);
+    }, [isAuth]);
 
     const onClickLogin = () => {
         navigate('/auth');

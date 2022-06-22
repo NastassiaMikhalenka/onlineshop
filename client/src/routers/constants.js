@@ -3,7 +3,6 @@ import BasketPage from "../pages/BasketPage/BasketPage";
 import MainPage from "../pages/MainPage/MainPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import DevicePage from "../pages/DevicePage/DevicePage";
-import React from "react";
 
 export const ADMIN_ROUTE = '/admin'
 export const LOGIN_ROUTE = '/auth'
