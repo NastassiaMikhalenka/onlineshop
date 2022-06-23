@@ -19,6 +19,13 @@ const theme = createTheme({
             fontFamily: 'Raleway',
             indicatorColor: '#006f74',
         },
+        tea: {
+            main: '#006f74',
+            color: 'red',
+            contrastText: '#ffffff',
+            fontFamily: 'Raleway',
+            indicatorColor: '#006f74',
+        },
     },
     indicatorColor: {
         teal: {

@@ -7,8 +7,10 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {setIsError} from "../../../store/auth/authAction";
+import {resetError, setIsError} from "../../../store/auth/authAction";
 import Modal from '@mui/material/Modal';
+import Stack from '@mui/material/Stack';
+import {addNewBrand} from "../../../store/devices/devicesThunk";
 
 
 const style = {
@@ -25,18 +27,31 @@ const style = {
 
 const CreateBrand = ({handleClose, open}) => {
     const dispatch = useDispatch();
-    const [value, setValue] = useState('')
     const isError = useSelector(getIsError);
+    const [value, setValue] = useState('');
 
     const addBrand = () => {
         deviceApi.createBrand({name: value}).then(data => {
             setValue('');
             handleClose('brandVisible')
+            dispatch(resetError())
         }).catch((e) => {
-            console.log(e)
-            dispatch(setIsError(e.response.data.message));
+            dispatch(setIsError(e.response.data.message.message));
         })
+
     }
+
+
+    // async function addBrand() {
+    //     dispatch(addNewBrand(value))
+    //     await (function () {
+    //         if (!isError) {
+    //             setValue('');
+    //             handleClose('brandVisible')
+    //         }
+    //     })()
+    // }
+
 
     return (
         <div>
@@ -52,32 +67,42 @@ const CreateBrand = ({handleClose, open}) => {
                     </Typography>
                     <div>
 
-                        {/*{isError && <Typography variant={'h4'} align={'center'} gutterBottom*/}
-                        {/*                        sx={{*/}
-                        {/*                            fontFamily: 'Raleway',*/}
-                        {/*                            color: '#d73b3b',*/}
-                        {/*                            fontSize: '15px'*/}
-                        {/*                        }}*/}
-                        {/*>*/}
-                        {/*    {isError}*/}
-                        {/*</Typography>*/}
-                        {/*}*/}
+                        {isError && <Typography variant={'h4'} align={'center'} gutterBottom
+                                                sx={{
+                                                    fontFamily: 'Raleway',
+                                                    color: '#d73b3b',
+                                                    fontSize: '15px'
+                                                }}
+                        >
+                            {isError}
+                        </Typography>
+                        }
 
                     </div>
-                    <FormControl fullWidth sx={{m: 1}} variant="standard">
+                    <FormControl fullWidth sx={{margin: '20px 0'}} variant="standard">
                         <TextField
-                            id="standard-number"
+                            color="teal"
                             label="New brand"
+                            id="newBrand"
                             type="text"
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             variant="standard"
-                            value={value} onChange={e => setValue(e.target.value)}
+                            value={value} onChange={e => {
+                            setValue(e.target.value)
+                            dispatch(resetError())
+                        }}
                         />
                     </FormControl>
-                    <Button variant="contained" onClick={addBrand}>Add</Button>
-                    <Button variant="outlined" onClick={() => handleClose('brandVisible')}>Cancel</Button>
+                    <Stack direction="row" spacing={2} justifyContent="center">
+                        <Button variant="contained" onClick={addBrand} color="tea">Add</Button>
+                        <Button variant="outlined" onClick={() => {
+                            handleClose('brandVisible')
+                            setValue('')
+                        }}
+                                color="teal">Cancel</Button>
+                    </Stack>
                 </Box>
             </Modal>
         </div>
@@ -85,25 +110,4 @@ const CreateBrand = ({handleClose, open}) => {
 };
 
 export default CreateBrand;
-
-
-const ErrorComponent = () => {
-
-    const isError = useSelector(getIsError);
-    return (
-        <div>
-            {
-                isError && <Typography variant={'h4'} align={'center'} gutterBottom
-                                       sx={{
-                                           fontFamily: 'Raleway',
-                                           color: '#d73b3b',
-                                           fontSize: '15px'
-                                       }}
-                >
-                    {isError}
-                </Typography>
-            }
-        </div>
-    )
-}
 

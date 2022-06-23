@@ -1,4 +1,4 @@
-import {setIsError, setIsLoading} from "../auth/authAction";
+import {resetError, setIsError, setIsLoading} from "../auth/authAction";
 import {deviceApi} from "../../api/deviceApi";
 import {isSelectedDevice, setBrands, setDevices, setTotalCount, setTypes} from "./devicesAction";
 
@@ -85,3 +85,17 @@ export const fetchDevices = (selectedTypeId, selectedBrandId, page, limit) => {
             })
     }
 };
+
+export const addNewBrand = (name) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true));
+        deviceApi.createBrand({name: name})
+            .then(data => {
+                dispatch(resetError())
+            }).catch((e) => {
+            dispatch(setIsError(e.response.data.message.message));
+        }).finally(() => {
+            dispatch(setIsLoading(false));
+        })
+    }
+}
