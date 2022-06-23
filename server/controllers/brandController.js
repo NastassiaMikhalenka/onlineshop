@@ -9,6 +9,9 @@ class BrandController {
                 // throw new Error("Can't create brand without a name")
                 return next(ApiError.badRequest({message: "Can't create brand without a name"}));
             }
+            if (req.body.name.length > 20) {
+                return next(ApiError.badRequest({message: "Can't create brand, very long!"}));
+            }
             const {name} = req.body
             const brand = await Brand.create({name})
             return res.json(brand);
@@ -38,7 +41,7 @@ class BrandController {
             }
 
             const name = req.body.name || brand.name;
-            await brand.update({ name });
+            await brand.update({name});
             return res.json(brand);
         } catch (err) {
             next(ApiError.badRequest(err.message));
