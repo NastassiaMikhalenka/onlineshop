@@ -41,18 +41,6 @@ const CreateBrand = ({handleClose, open}) => {
 
     }
 
-
-    // async function addBrand() {
-    //     dispatch(addNewBrand(value))
-    //     await (function () {
-    //         if (!isError) {
-    //             setValue('');
-    //             handleClose('brandVisible')
-    //         }
-    //     })()
-    // }
-
-
     return (
         <div>
             <Modal
