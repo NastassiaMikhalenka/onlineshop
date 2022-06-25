@@ -12,7 +12,6 @@ import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import {addNewBrand} from "../../../store/devices/devicesThunk";
 
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -54,7 +53,6 @@ const CreateBrand = ({handleClose, open}) => {
                         Add Brand
                     </Typography>
                     <div>
-
                         {isError && <Typography variant={'h4'} align={'center'} gutterBottom
                                                 sx={{
                                                     fontFamily: 'Raleway',
