@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
-import {deviceApi} from "../../../api/deviceApi";
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getIsError} from "../../../store/auth/authSelectors";
-import {Typography} from "@mui/material";
+import {List, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {resetError, setIsError} from "../../../store/auth/authAction";
+import {resetError} from "../../../store/auth/authAction";
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
-import {addNewBrand} from "../../../store/devices/devicesThunk";
+import {addNewBrand, fetchBrands, onDeleteBrand} from "../../../store/devices/devicesThunk";
+import {getBrands} from "../../../store/devices/devicesSelectors";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const style = {
     position: 'absolute',
@@ -27,18 +29,23 @@ const style = {
 const CreateBrand = ({handleClose, open}) => {
     const dispatch = useDispatch();
     const isError = useSelector(getIsError);
+    const brands = useSelector(getBrands);
     const [value, setValue] = useState('');
 
-    const addBrand = () => {
-        deviceApi.createBrand({name: value}).then(data => {
-            setValue('');
-            handleClose('brandVisible')
-            dispatch(resetError())
-        }).catch((e) => {
-            dispatch(setIsError(e.response.data.message.message));
-        })
 
+    useEffect(() => {
+        dispatch(fetchBrands())
+    }, [brands, dispatch]);
+
+    const addBrand = () => {
+        dispatch(addNewBrand(value));
+        setValue('');
     }
+
+    const onClickDelete = (id) => {
+        dispatch(onDeleteBrand(id));
+    };
+
 
     return (
         <div>
@@ -63,6 +70,19 @@ const CreateBrand = ({handleClose, open}) => {
                             {isError}
                         </Typography>
                         }
+
+                        <List style={{height: '75px', overflow: 'scroll'}}>
+                            {brands.map((brand) => (
+                                <Stack direction="row" alignItems="center" spacing={1}   key={brand.id}>
+                                    <Typography
+                                    > {brand.name} </Typography>
+                                    <IconButton aria-label="delete" size="small"
+                                                onClick={() => onClickDelete(brand.id)}>
+                                        <DeleteIcon fontSize="inherit"/>
+                                    </IconButton>
+                                </Stack>
+                            ))}
+                        </List>
 
                     </div>
                     <FormControl fullWidth sx={{margin: '20px 0'}} variant="standard">

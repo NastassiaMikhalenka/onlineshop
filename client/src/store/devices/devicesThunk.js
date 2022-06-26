@@ -92,6 +92,24 @@ export const addNewBrand = (name) => {
         deviceApi.createBrand({name: name})
             .then(data => {
                 dispatch(resetError())
+                dispatch(setIsError('success'));
+            }).catch((e) => {
+            dispatch(setIsError(e.response.data.message.message));
+        }).finally(() => {
+            dispatch(setIsLoading(false));
+        })
+    }
+}
+
+
+
+export const onDeleteBrand = (id) => {
+    return (dispatch) => {
+        dispatch(resetError())
+        dispatch(setIsLoading(true));
+        deviceApi.deleteBrand(id)
+            .then(data => {
+                dispatch(setIsError('success'));
             }).catch((e) => {
             dispatch(setIsError(e.response.data.message.message));
         }).finally(() => {
